@@ -10,8 +10,8 @@ const recipeSchema = new Schema({
         description: { type: String, required: true } // Description of the step
     }], // Array of objects for step-by-step instructions
     servings: Number,
-    cookingtime: Number,
-    preptime: Number,
+    cookingtime: String,
+    preptime: String,
     cuisine: String,
     createdBy: { type: Schema.Types.ObjectId, ref: "User" },
 }, {

@@ -41,6 +41,43 @@ try{
   
  
 
+  //search recipe using cuisine or title
+  export const getRecipes = async (req,res) => {
+    try{
+      const {cuisine, title} = req.query;
+      let query = {};
+
+      if(cuisine){
+        query.cuisine = cuisine;
+      }
+
+      if(title){
+        query.title = title;
+      }
+
+      const recipes = await Recipe.find(query);
+
+      if(!recipes){
+        return res.status(404).json({
+          success: false,
+          message: "Recipe not found",
+        });
+      }else{
+        return res.status(200).json({
+          success: true,
+          data: recipes,
+        });
+      }
+    }catch(err){
+      return res.status(500).json({
+        success: false,
+        message: "Internal Server Error",
+        error: err.message,
+      });
+    }
+  }
+  
+
   //Read recipe
   export const getRecipebyId = async (req,res) => {
     try{
@@ -134,4 +171,3 @@ try{
         });
     }
   };
-
